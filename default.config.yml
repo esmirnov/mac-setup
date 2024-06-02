@@ -1,5 +1,7 @@
 ---
 downloads: ~/Downloads/.ansible-downloads
+git_name: ""
+git_email: ""
 
 homebrew_installed_packages:
   - go

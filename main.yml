@@ -66,6 +66,13 @@
       tags: ['git']
 
 
+    - name: Generate an SSH key for github
+      community.crypto.openssh_keypair:
+        type: ed25519
+        comment: "{{ git_email }}"
+        path: /tmp/github.com
+      tags: ['git']
+
     - import_tasks: tasks/terminal.yml
       when: configure_terminal
       tags: ['terminal']
