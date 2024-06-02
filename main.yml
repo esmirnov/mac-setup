@@ -1,0 +1,71 @@
+---
+- name: Manage Local Mac
+  hosts: all
+
+  vars_files:
+    - default.config.yml
+
+  pre_tasks:
+    - name: Include playbook configuration
+      include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+      tags: ['always']
+
+  roles:
+    - role: geerlingguy.mac.homebrew
+      tags: ['homebrew']
+    - role: geerlingguy.mac.dock
+      when: configure_dock
+      tags: ['dock']
+
+  tasks:
+    - name: Create the ansible downloads directory
+      file:
+        path: "{{ downloads }}"
+        state: directory
+      tags: ['fonts']
+
+
+
+    - name: Create the Code directory
+      file:
+        path: "~/Code"
+        state: directory
+      tags: ['dirs']
+
+
+
+    - name: Create the Martian Mono fonts directory
+      file:
+        path: "{{ downloads }}/martian-mono"
+        state: directory
+      tags: ['fonts']
+
+    - name: Download Martian Mono fonts
+      ansible.builtin.unarchive:
+        src: https://github.com/evilmartians/mono/releases/download/v1.0.0/martian-mono-1.0.0-ttf.zip
+        dest: "{{ downloads }}/martian-mono"
+        remote_src: yes
+      tags: ['fonts']
+
+    - name: Install Martian Mono fonts
+      shell: find {{ downloads }}/martian-mono -name "*.ttf" -exec ditto {} /Library/Fonts \;
+      args:
+        executable: /bin/bash
+        chdir: "{{ downloads }}/martian-mono"
+      tags: ['fonts']
+
+
+    - name: Configure GIT user
+      shell: |
+        git config --global user.email "{{ git_email }}"
+        git config --global user.name "{{ git_name }}"
+      args:
+        executable: /bin/bash
+      tags: ['git']
+
+
+    - import_tasks: tasks/terminal.yml
+      when: configure_terminal
+      tags: ['terminal']
