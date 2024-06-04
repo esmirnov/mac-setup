@@ -35,6 +35,8 @@
       tags: ['dirs']
 
 
+    - import_tasks: tasks/martian-mono-fonts.yml
+      tags: ['fonts']
 
     - name: Create the Martian Mono fonts directory
       file:
