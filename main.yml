@@ -24,9 +24,6 @@
       file:
         path: "{{ downloads }}"
         state: directory
-      tags: ['fonts']
-
-
 
     - name: Create the Code directory
       file:
@@ -34,30 +31,8 @@
         state: directory
       tags: ['dirs']
 
-
     - import_tasks: tasks/martian-mono-fonts.yml
       tags: ['fonts']
-
-    - name: Create the Martian Mono fonts directory
-      file:
-        path: "{{ downloads }}/martian-mono"
-        state: directory
-      tags: ['fonts']
-
-    - name: Download Martian Mono fonts
-      ansible.builtin.unarchive:
-        src: https://github.com/evilmartians/mono/releases/download/v1.0.0/martian-mono-1.0.0-ttf.zip
-        dest: "{{ downloads }}/martian-mono"
-        remote_src: yes
-      tags: ['fonts']
-
-    - name: Install Martian Mono fonts
-      shell: find {{ downloads }}/martian-mono -name "*.ttf" -exec ditto {} /Library/Fonts \;
-      args:
-        executable: /bin/bash
-        chdir: "{{ downloads }}/martian-mono"
-      tags: ['fonts']
-
 
     - name: Configure GIT user
       shell: |
@@ -66,7 +41,6 @@
       args:
         executable: /bin/bash
       tags: ['git']
-
 
     - name: Generate an SSH key for github
       community.crypto.openssh_keypair:
