@@ -1,0 +1,11 @@
+---
+- name: Ensure the .config directory exists
+  file:
+    path: "~/.config"
+    state: directory
+
+- name: Copy karabiner configuration
+  copy:
+    src: files/karabiner
+    dest: ~/.config/karabiner
+    
