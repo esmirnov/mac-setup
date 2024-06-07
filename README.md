@@ -27,3 +27,4 @@ Inside this directory:
   - Sign in to extensions
 - Manually sign in to VSCode and enable sync
 - Enable "Night Shift" is display settings
+- Configure text input sources
