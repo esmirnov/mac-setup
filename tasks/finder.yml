@@ -1,0 +1,14 @@
+---
+- name: Configure Finder settings
+  ansible.builtin.command: "{{ item }}"
+  with_items:
+    # Show all filename extensions
+    - defaults write NSGlobalDomain AppleShowAllExtensions -boolean true
+    # Keep folders on top when sorting by name
+    - defaults write com.apple.finder _FXSortFoldersFirst -boolean true
+    # Show status bar
+    - defaults write com.apple.finder ShowStatusBar -boolean true
+    # Show path bar
+    - defaults write com.apple.finder ShowPathbar -boolean true
+    # Restart Finder
+    - killall Finder

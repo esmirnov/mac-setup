@@ -17,6 +17,7 @@ homebrew_cask_apps:
   - zoom
 
 configure_terminal: true
+configure_finder: true
 
 configure_dock: true
 dockitems_remove:

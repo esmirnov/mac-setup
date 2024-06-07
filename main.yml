@@ -55,3 +55,7 @@
 
     - import_tasks: tasks/karabiner.yml
       tags: ['karabiner']
+
+    - import_tasks: tasks/finder.yml
+      when: configure_finder
+      tags: ['finder']
