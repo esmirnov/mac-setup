@@ -6,6 +6,5 @@
 
 - name: Copy karabiner configuration
   copy:
-    src: files/karabiner
+    src: files/karabiner/
     dest: ~/.config/karabiner
-    
